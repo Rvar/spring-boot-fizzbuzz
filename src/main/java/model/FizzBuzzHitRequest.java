@@ -5,6 +5,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Fizz-buzz hit request parameter object.
+ * 
+ * @author Ran
+ *
+ */
 @AllArgsConstructor
 @Getter
 @Setter
