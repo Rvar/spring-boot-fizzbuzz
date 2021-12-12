@@ -1,8 +1,9 @@
 package com.fizzbuzz.springbootfizzbuzz;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
-import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.stereotype.Service;
 
 import model.FizzBuzzHitRequest;
@@ -26,44 +27,55 @@ public class FizzbuzzServices {
 			int limit,
 			String firstStr,
 			String secondStr
-	 * @return String result
+	 * @return ArrayList<String> ArrayList of String
 	 */
-	public String fizzbuzz(FizzBuzzRequest fbReq)  {
-		StringBuilder sb = new StringBuilder();
+	public ArrayList<String> fizzbuzz(FizzBuzzRequest fbReq) throws NoSuchElementException  {
+		
+		ArrayList<String> result = new ArrayList<>();
+		
+		if(fbReq.getLimit() < 1) {
+			throw new NoSuchElementException("Param : limit can not be under than 1");
+		}
 		
 		for(int i = 1; i <= fbReq.getLimit(); ++i) {
 			
 			if(i%fbReq.getFirstMultiple() == 0 && i%fbReq.getSecondMultiple() == 0) {
-				sb.append(fbReq.getFirstStr() + fbReq.getSecondStr());
+				result.add(fbReq.getFirstStr() + fbReq.getSecondStr());
 			} else if(i%fbReq.getFirstMultiple() == 0) {
-				sb.append(fbReq.getFirstStr());
+				result.add(fbReq.getFirstStr());
 			} else if(i%fbReq.getSecondMultiple() == 0) {
-				sb.append(fbReq.getSecondStr());
+				result.add(fbReq.getSecondStr());
 			} else {
-				sb.append(i);
+				result.add(String.valueOf(i));
 			}
-			
-			sb.append(",");
 		}
 		
-		return sb.substring(0, sb.length()-1);
+		return result;
 	}
 	
 	
+	/**
+	 * Add hit to a fizz-buzz request
+	 * @param fbReq : fizz-buzz request to process
+	 */
 	public void addFizzBuzzHitRequest(FizzBuzzRequest fbReq) {
 		
 		Integer hc = fbReq.hashCode();
 		
-		if(fizzBuzzHitRequest.containsKey(hc)) {
-			fizzBuzzHitRequest.get(hc).addHit();
+		if(this.fizzBuzzHitRequest.containsKey(hc)) {
+			this.fizzBuzzHitRequest.get(hc).addHit();
 		} else {
-			fizzBuzzHitRequest.put(hc, new FizzBuzzHitRequest(0, fbReq));
+			this.fizzBuzzHitRequest.put(hc, new FizzBuzzHitRequest(1, fbReq));
 		}
 	}
 	
+	/**
+	 * Get the most executed fizz-buzz request contain in fizzBuzzHitRequest
+	 * @return FizzBuzzHitRequest
+	 */
 	public FizzBuzzHitRequest getFizzBuzzMostRequested() {
 		
-		return fizzBuzzHitRequest.entrySet()
+		return this.fizzBuzzHitRequest.entrySet()
 		.stream()
 		.max((fBHitReq1, fBHitReq2) -> fBHitReq1.getValue().getHits()  > fBHitReq2.getValue().getHits() ? 1 : -1)
 		.get().getValue();
