@@ -59,17 +59,17 @@ class FizzbuzzApplicationTests {
 		
 		FizzBuzzRequest fbReq_one = new FizzBuzzRequest(firstMultiple, secondMultiple, limit, fizz, buzz);
 		
-		executeFizzBuzz(fbReq_one);
+		executeFizzBuzzTest(fbReq_one);
 		executeMostRequestedTest(fbReq_one);
 	}
 	
 	/**
-	 * Execute Fizz-buzz web call
+	 * Execute Test Fizz-buzz web call
 	 * 
 	 * @param fbReq_one : fizz-buzz parameter request
 	 * @throws Exception
 	 */
-	private void executeFizzBuzz(FizzBuzzRequest fbReq_one) throws Exception {
+	private void executeFizzBuzzTest(FizzBuzzRequest fbReq_one) throws Exception {
 		
 		int firstMultiple = fbReq_one.getFirstMultiple();
 		int secondMultiple = fbReq_one.getSecondMultiple();
@@ -110,7 +110,7 @@ class FizzbuzzApplicationTests {
 	}
 	
 	/**
-	 * Execute Fizz-buzz most executed request call
+	 * Execute Test Fizz-buzz most executed request call
 	 * 
 	 * @param fbReq_one : fizz-buzz parameter request
 	 * @throws Exception
