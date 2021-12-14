@@ -1,9 +1,7 @@
 package model;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * Fizz-buzz hit request parameter object.
@@ -12,9 +10,7 @@ import lombok.Setter;
  *
  */
 @AllArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode(of= {"hits", "fbReq"})
+@Data
 public class FizzBuzzHitRequest {
 	
 	int hits;
