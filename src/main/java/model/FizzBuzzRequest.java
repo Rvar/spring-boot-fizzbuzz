@@ -2,10 +2,7 @@ package model;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 /**
@@ -16,10 +13,7 @@ import lombok.experimental.FieldDefaults;
  */
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @AllArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode(of= {"firstMultiple", "secondMultiple", "limit", "firstStr", "secondStr"})
-@ToString(of= {"firstMultiple", "secondMultiple", "limit", "firstStr", "secondStr"})
+@Data
 public class FizzBuzzRequest {
 	
 	int firstMultiple;

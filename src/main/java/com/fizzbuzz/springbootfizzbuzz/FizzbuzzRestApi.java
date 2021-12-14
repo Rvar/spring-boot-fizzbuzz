@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +35,7 @@ public class FizzbuzzRestApi {
 	 * 	all multiples of firstMultiple and secondMultiple are replaced by firstStrsecondStr.
 	 */
 	@GetMapping
-	public ResponseEntity<ArrayList<String>> getFizzBuzz(	
+	public ArrayList<String> getFizzBuzz(	
 								@RequestParam int firstMultiple,
 								@RequestParam int secondMultiple,
 								@RequestParam int limit,
@@ -48,7 +47,7 @@ public class FizzbuzzRestApi {
 		fizzbuzzServices.addFizzBuzzHitRequest(fbReq);
 		
 		try {
-			return new ResponseEntity<>(fizzbuzzServices.fizzbuzz(fbReq), HttpStatus.OK);
+			return fizzbuzzServices.fizzbuzz(fbReq);
 		} catch(NoSuchElementException ex) {
 			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage());
 		}
@@ -61,10 +60,10 @@ public class FizzbuzzRestApi {
 	 * @return the parameters corresponding to the most used request, as well as the number of hits for this request
 	 */
 	@GetMapping(value = "/mostRequested")
-	public ResponseEntity<FizzBuzzHitRequest> getFizzBuzzStatistics() {
+	public FizzBuzzHitRequest getFizzBuzzMostRequested() {
 		
 		try {
-			return new ResponseEntity<>(fizzbuzzServices.getFizzBuzzMostRequested(), HttpStatus.OK);
+			return fizzbuzzServices.getFizzBuzzMostRequested();
 		} catch(NoSuchElementException ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No request have been made yet");
 		}
