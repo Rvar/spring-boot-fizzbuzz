@@ -65,7 +65,7 @@ public class FizzbuzzRestApi {
 		try {
 			return fizzbuzzServices.getFizzBuzzMostRequested();
 		} catch(NoSuchElementException ex) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No request have been made yet");
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "No request have been made yet");
 		}
 		
 	}
