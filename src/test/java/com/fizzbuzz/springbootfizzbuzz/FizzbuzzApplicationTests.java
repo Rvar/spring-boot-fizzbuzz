@@ -20,8 +20,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 
-import model.FizzBuzzHitRequest;
-import model.FizzBuzzRequest;
+import com.fizzbuzz.springbootfizzbuzz.model.FizzBuzzHitRequest;
+import com.fizzbuzz.springbootfizzbuzz.model.FizzBuzzRequest;
+import com.fizzbuzz.springbootfizzbuzz.rest.FizzbuzzRestApi;
 
 
 
@@ -31,9 +32,6 @@ class FizzbuzzApplicationTests {
 	
 	@Autowired
 	private FizzbuzzRestApi controller;
-
-	@MockBean
-	private FizzbuzzServices fizzbuzzServiceMock;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -91,10 +89,8 @@ class FizzbuzzApplicationTests {
 		result.add("21"); result.add(fizz);
 		result.add("23"); result.add(fizz);
 		result.add("25"); result.add(fizz);
-		result.add(buzz); result.add("29");
-		result.add(fizz);
-		
-		when(fizzbuzzServiceMock.fizzbuzz(fbReq_one)).thenReturn(result);
+		result.add(buzz); result.add(fizz);
+		result.add("29"); result.add(fizz);
 		
 		LinkedMultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
 		requestParams.add("firstMultiple", String.valueOf(firstMultiple));
@@ -106,7 +102,7 @@ class FizzbuzzApplicationTests {
 		this.mockMvc.perform(get("/fizzbuzz").params(requestParams))
 		.andDo(print())
 		.andExpect(status().isOk())
-		.andExpect(content().string(containsString("[\"" + String.join("\",\"", result) + "\"]")));
+		.andExpect(content().string("[\"" + String.join("\",\"", result) + "\"]"));
 	}
 	
 	/**
@@ -116,9 +112,6 @@ class FizzbuzzApplicationTests {
 	 * @throws Exception
 	 */
 	private void executeMostRequestedTest(FizzBuzzRequest fbReq_one) throws Exception {
-		
-		FizzBuzzHitRequest fbHitRequest = new FizzBuzzHitRequest(1, fbReq_one);
-		when(fizzbuzzServiceMock.getFizzBuzzMostRequested()).thenReturn(fbHitRequest);
 		
 		String expectedResult = "{\"hits\":1,\"fbReq\":{\"firstMultiple\":2,\"secondMultiple\":9,\"limit\":30,\"firstStr\":\"fizz\",\"secondStr\":\"buzz\"}}";
 		

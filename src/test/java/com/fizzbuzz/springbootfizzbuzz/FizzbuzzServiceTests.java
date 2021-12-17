@@ -3,12 +3,14 @@ package com.fizzbuzz.springbootfizzbuzz;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.fizzbuzz.springbootfizzbuzz.model.FizzBuzzHitRequest;
+import com.fizzbuzz.springbootfizzbuzz.model.FizzBuzzRequest;
+import com.fizzbuzz.springbootfizzbuzz.services.FizzbuzzServices;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
-
-import model.FizzBuzzHitRequest;
-import model.FizzBuzzRequest;
 
 @SpringBootTest
 public class FizzbuzzServiceTests {
